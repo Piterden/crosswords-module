@@ -1,0 +1,9 @@
+{
+    "name": "defr/crosswords-module",
+    "type": "streams-addon",
+    "autoload": {
+        "psr-4": {
+            "Defr\\CrosswordsModule\\": "src/"
+        }
+    }
+}
