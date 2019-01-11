@@ -24,66 +24,110 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
     }
 
     /**
-     * Find all words by its query
+     * Find all words by its mask
      *
-     * @param  int  $query  The query
-     * @return WordCollection
+     * @param   string          $mask      The mask
+     * @param   integer         $page      The page (default: 0)
+     * @param   integer         $pageSize  The page size (default: 2000)
+     * @return  WordCollection
      */
-    public function findAllByQuery($query, $page = 0, $pageSize = 2000)
+    public function findAllByMask($mask, $page = 0, $pageSize = 2000)
     {
-        $columns = ['id', 'length'];
-
-        for ($i = 1; $i <= $query['length']; ++$i) {
-            $columns[] = "letter_{$i}";
-        }
+        $attrs = $this->getMaskAttributes($mask);
 
         return $this->model
-            ->select($columns)
-            ->where($query)
+            ->select($attrs['columns'])
+            ->where($attrs['query'])
             ->offset($page * $pageSize)
             ->limit($pageSize)
             ->get();
     }
 
     /**
-     * Find word by word.
+     * Find word by word string.
      *
-     * @param  string  $word  The word
-     * @return WordInterface
+     * @param   string         $text  The text
+     * @return  WordInterface
      */
     public function findByWord($word)
     {
-        $wordArray = preg_split('//u', $word, null, PREG_SPLIT_NO_EMPTY);
-        $columns   = ['id', 'length'];
-        $query     = [];
-
-        for ($i = 1; $i <= iconv_strlen($word, 'UTF-8'); ++$i) {
-            $columns[] = "letter_{$i}";
-        }
-
-        $i = 1;
-
-        foreach ($wordArray as $letter) {
-            if ($letter != '_') {
-                $query["letter_{$i}"] = $letter;
-            }
-            ++$i;
-        }
+        $attrs = $this->getMaskAttributes($word);
 
         return $this->model
-            ->select($columns)
-            ->where($query)
+            ->select($attrs['columns'])
+            ->where($attrs['query'])
             ->first();
     }
 
     /**
-     * Counts word by query.
+     * Counts word by mask.
      *
-     * @param  int $query The query
-     * @return int
+     * @param   string   $mask  The mask
+     * @return  integer
      */
-    public function countByQuery($query)
+    public function countByMask($mask)
     {
-        return $this->model->where($query)->count();
+        $attrs = $this->getMaskAttributes($mask);
+
+        return $this->model
+            ->where($attrs['query'])
+            ->count();
     }
+
+    // /**
+    //  * Gets the word attributes.
+    //  *
+    //  * @param  string  $word  The word
+    //  * @return array   The word attributes.
+    //  */
+    // private function getWordAttributes($word)
+    // {
+    //     $length  = iconv_strlen($word, 'UTF-8');
+    //     $columns = ['id', 'length'];
+    //     $query   = ['length' => $length];
+
+    //     for ($i = 1; $i <= $length; $i++) {
+    //         $letter    = iconv_substr($word, $i - 1, 1, 'UTF-8');
+    //         $column    = "letter_{$i}";
+    //         $columns[] = $column;
+
+    //         if ($letter != '_') {
+    //             $query[$column] = $letter;
+    //         }
+    //     }
+
+    //     return [
+    //         'query'   => $query,
+    //         'columns' => $columns,
+    //     ];
+    // }
+
+    /**
+     * Gets the mask attributes.
+     *
+     * @param   string  $mask  The mask
+     * @return  array
+     */
+    public function getMaskAttributes($mask)
+    {
+        $length  = iconv_strlen($mask, 'UTF-8');
+        $columns = ['id', 'length'];
+        $query   = ['length' => $length];
+
+        for ($i = 1; $i <= $length; $i++) {
+            $letter    = iconv_substr($mask, $i - 1, 1, 'UTF-8');
+            $column    = "letter_{$i}";
+            $columns[] = $column;
+
+            if ($letter != '_') {
+                $query[$column] = $letter;
+            }
+        }
+
+        return [
+            'query'   => $query,
+            'columns' => $columns,
+        ];
+    }
+
 }

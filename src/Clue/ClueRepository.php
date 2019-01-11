@@ -10,14 +10,14 @@ class ClueRepository extends EntryRepository implements ClueRepositoryInterface
     /**
      * The entry model.
      *
-     * @var ClueModel
+     * @var  ClueModel
      */
     protected $model;
 
     /**
      * Create a new ClueRepository instance.
      *
-     * @param ClueModel $model
+     * @param  ClueModel  $model
      */
     public function __construct(ClueModel $model)
     {
@@ -25,10 +25,10 @@ class ClueRepository extends EntryRepository implements ClueRepositoryInterface
     }
 
     /**
-     * Find all clues by word
+     * Finds all clues by a word.
      *
-     * @param WordInterface $word The word
-     * @return ClueCollection
+     * @param   WordInterface   $word  The word
+     * @return  ClueCollection
      */
     public function findAllByWord(WordInterface $word)
     {
@@ -37,4 +37,5 @@ class ClueRepository extends EntryRepository implements ClueRepositoryInterface
             ->where(['word_id' => $word->getId()])
             ->get();
     }
+
 }

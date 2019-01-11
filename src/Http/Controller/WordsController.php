@@ -14,22 +14,7 @@ class WordsController extends ResourceController
      */
     public function find(WordRepositoryInterface $words, $page = 0, $mask)
     {
-        $length = iconv_strlen($mask, 'UTF-8');
-        $wordArray = preg_split('//u', $mask, null, PREG_SPLIT_NO_EMPTY);
-        $query = [];
-        $i = 1;
-
-        foreach ($wordArray as $letter) {
-            if ($letter != '_') {
-                $query["letter_{$i}"] = $letter;
-            }
-            $i++;
-        }
-
-        return response()->json($words->findAllByQuery(
-            array_merge(['length' => $length], $query),
-            $page
-        ));
+        return $this->response->json($words->findAllByMask($mask, $page));
     }
 
     /**
@@ -40,19 +25,43 @@ class WordsController extends ResourceController
      */
     public function count(WordRepositoryInterface $words, $mask)
     {
-        $length = iconv_strlen($mask, 'UTF-8');
-        $wordArray = preg_split('//u', $mask, null, PREG_SPLIT_NO_EMPTY);
-        $query = ['length' => $length];
-        $i = 1;
+        return $words->countByMask($mask);
+        return $this->response->json([
+            'success' => true,
+            'data'    => $words->countByMask($mask),
+        ]);
+    }
 
-        foreach ($wordArray as $letter) {
-            if ($letter != '_') {
-                $query["letter_{$i}"] = $letter;
-            }
-            $i++;
+    public function create(WordRepositoryInterface $words)
+    {
+        if (request()->method() != 'POST') {
+            return response()->json(['error' => 'Allows only POST requests!']);
         }
 
-        return $words->countByQuery($query);
+        $post   = request()->all();
+        $params = [];
+
+
+        /* @var WordInterface|null $word */
+        if (!$word = $words->create($params)) {
+            return response()->json(['error' => 'Can\'t create a word!']);
+        }
+
+        /* @var AttachmentInterface|null $attachment */
+        if (!$attachment = $attachments->create([
+            'crossword' => $crossword,
+            'clue'      => $clue,
+            'x'         => $x,
+            'y'         => $y,
+            'direction' => $direction,
+        ])) {
+            return response()->json(['error' => 'Can\'t create attachment!']);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data'    => $attachment,
+        ]);
     }
 
 }
