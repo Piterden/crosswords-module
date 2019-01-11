@@ -49,13 +49,13 @@ class CrosswordsModuleSeeder extends Seeder
 
         echo "\n\n\033[34;6;228mStarting crosswords seeder!\n";
 
-        $this->words->truncate();
-        echo "\033[35;6;228mWords removed!\n";
+        // $this->words->truncate();
+        // echo "\033[35;6;228mWords removed!\n";
 
-        $this->clues->truncate();
-        echo "\033[35;6;228mClues removed!\n";
+        // $this->clues->truncate();
+        // echo "\033[35;6;228mClues removed!\n";
 
-        $files = glob(__DIR__ . '/../resources/seeder/*.json');
+        $files = glob(__DIR__ . '/../resources/seeder/[89]*.json');
 
         foreach ($files as $file) {
             echo "\033[34;6;228mStarting {$file} file!\n";

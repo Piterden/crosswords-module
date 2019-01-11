@@ -4,7 +4,6 @@ use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsAttachmentsEntryModel;
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsCluesEntryModel;
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsCrosswordsEntryModel;
-use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsQuestionsEntryModel;
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsWordsEntryModel;
 use Defr\CrosswordsModule\Attachment\AttachmentModel;
 use Defr\CrosswordsModule\Attachment\AttachmentRepository;
@@ -15,9 +14,7 @@ use Defr\CrosswordsModule\Clue\Contract\ClueRepositoryInterface;
 use Defr\CrosswordsModule\Crossword\Contract\CrosswordRepositoryInterface;
 use Defr\CrosswordsModule\Crossword\CrosswordModel;
 use Defr\CrosswordsModule\Crossword\CrosswordRepository;
-use Defr\CrosswordsModule\Question\Contract\QuestionRepositoryInterface;
-use Defr\CrosswordsModule\Question\QuestionModel;
-use Defr\CrosswordsModule\Question\QuestionRepository;
+use Defr\CrosswordsModule\Http\Middleware\CorsMiddleware;
 use Defr\CrosswordsModule\Word\Contract\WordRepositoryInterface;
 use Defr\CrosswordsModule\Word\WordModel;
 use Defr\CrosswordsModule\Word\WordRepository;
@@ -60,15 +57,46 @@ class CrosswordsModuleServiceProvider extends AddonServiceProvider
      * @type array|null
      */
     protected $routes = [
-        'admin/crosswords/words'                 => 'Defr\CrosswordsModule\Http\Controller\Admin\WordsController@index',
-        'admin/crosswords/words/create'          => 'Defr\CrosswordsModule\Http\Controller\Admin\WordsController@create',
-        'admin/crosswords/words/edit/{id}'       => 'Defr\CrosswordsModule\Http\Controller\Admin\WordsController@edit',
-        'admin/crosswords/attachments'           => 'Defr\CrosswordsModule\Http\Controller\Admin\AttachmentsController@index',
-        'admin/crosswords/attachments/create'    => 'Defr\CrosswordsModule\Http\Controller\Admin\AttachmentsController@create',
-        'admin/crosswords/attachments/edit/{id}' => 'Defr\CrosswordsModule\Http\Controller\Admin\AttachmentsController@edit',
-        'admin/crosswords'                       => 'Defr\CrosswordsModule\Http\Controller\Admin\CrosswordsController@index',
-        'admin/crosswords/create'                => 'Defr\CrosswordsModule\Http\Controller\Admin\CrosswordsController@create',
-        'admin/crosswords/edit/{id}'             => 'Defr\CrosswordsModule\Http\Controller\Admin\CrosswordsController@edit',
+        'admin/crosswords/words'                 => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\WordsController@index',
+        ],
+        'admin/crosswords/words/create'          => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\WordsController@create',
+        ],
+        'admin/crosswords/words/edit/{id}'       => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\WordsController@edit',
+        ],
+        'admin/crosswords/attachments'           => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\AttachmentsController@index',
+        ],
+        'admin/crosswords/attachments/create'    => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\AttachmentsController@create',
+        ],
+        'admin/crosswords/attachments/edit/{id}' => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\AttachmentsController@edit',
+        ],
+        'admin/crosswords'                       => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\CrosswordsController@index',
+        ],
+        'admin/crosswords/create'                => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\CrosswordsController@create',
+        ],
+        'admin/crosswords/edit/{id}'             => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\CrosswordsController@edit',
+        ],
+
+        'crossword/words/find/{page}/{mask}'     => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\WordsController@find',
+            'middleware' => [CorsMiddleware::class],
+        ],
+        'crossword/words/count/{mask}'           => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\WordsController@count',
+            'middleware' => [CorsMiddleware::class],
+        ],
+        'crossword/clues/find/{word}'            => [
+            'uses' => 'Defr\CrosswordsModule\Http\Controller\CluesController@find',
+            'middleware' => [CorsMiddleware::class],
+        ],
     ];
 
     /**
@@ -76,9 +104,7 @@ class CrosswordsModuleServiceProvider extends AddonServiceProvider
      *
      * @type array|null
      */
-    protected $middleware = [
-        //Defr\CrosswordsModule\Http\Middleware\ExampleMiddleware::class
-    ];
+    protected $middleware = [];
 
     /**
      * Addon group middleware.
