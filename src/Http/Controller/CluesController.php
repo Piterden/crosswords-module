@@ -21,7 +21,10 @@ class CluesController extends ResourceController
         $word
     ) {
         if (!$word) {
-            return $this->response->json('Word not set!', 500);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Word not defined!',
+            ], 500);
         }
 
         if (is_string($word)) {
@@ -33,10 +36,16 @@ class CluesController extends ResourceController
         }
 
         if (!$wordEntry) {
-            return $this->response->json('Word not found!', 500);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Word not found!',
+            ], 500);
         }
 
-        return $this->response->json($clues->findAllByWord($wordEntry));
+        return $this->response->json([
+            'success' => true,
+            'clues'   => $clues->findAllByWord($wordEntry),
+        ]);
     }
 
     /**
@@ -52,14 +61,20 @@ class CluesController extends ResourceController
     )
     {
         if ($this->request->method() != 'POST') {
-            return $this->response->json(['error' => 'Allows only POST requests!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Allows only POST requests!',
+            ]);
         }
 
         $post = $this->request->all();
 
         /* @var WordInterface|null $word */
         if (!$word = $words->find($post['word'])) {
-            return $this->response->json(['error' => 'Can\'t find word!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Can\'t find word!',
+            ]);
         }
 
         /* @var ClueInterface|null $clue */
@@ -67,7 +82,10 @@ class CluesController extends ResourceController
             'word' => $word,
             'name' => $post['name'],
         ])) {
-            return $this->response->json(['error' => 'Can\'t create clue!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Can\'t create clue!',
+            ]);
         }
 
         return $this->response->json([
@@ -85,13 +103,19 @@ class CluesController extends ResourceController
     public function delete(ClueRepositoryInterface $clues)
     {
         if (request()->method() != 'POST') {
-            return $this->response->json(['error' => 'Allows only POST requests!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Allows only POST requests!',
+            ]);
         }
 
         $id = request()->get('id');
 
         if (!$clues->delete($id)) {
-            return $this->response->json(['error' => 'Can\'t delete clue!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Can\'t delete clue!',
+            ]);
         }
 
         return $this->response->json([

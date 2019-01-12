@@ -28,10 +28,10 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
      *
      * @param   string          $mask      The mask
      * @param   integer         $page      The page (default: 0)
-     * @param   integer         $pageSize  The page size (default: 2000)
+     * @param   integer         $pageSize  The page size (default: 200)
      * @return  WordCollection
      */
-    public function findAllByMask($mask, $page = 0, $pageSize = 2000)
+    public function findAllByMask($mask, $page = 0, $pageSize = 200)
     {
         $attrs = $this->getMaskAttributes($mask);
 
@@ -74,34 +74,6 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
             ->count();
     }
 
-    // /**
-    //  * Gets the word attributes.
-    //  *
-    //  * @param  string  $word  The word
-    //  * @return array   The word attributes.
-    //  */
-    // private function getWordAttributes($word)
-    // {
-    //     $length  = iconv_strlen($word, 'UTF-8');
-    //     $columns = ['id', 'length'];
-    //     $query   = ['length' => $length];
-
-    //     for ($i = 1; $i <= $length; $i++) {
-    //         $letter    = iconv_substr($word, $i - 1, 1, 'UTF-8');
-    //         $column    = "letter_{$i}";
-    //         $columns[] = $column;
-
-    //         if ($letter != '_') {
-    //             $query[$column] = $letter;
-    //         }
-    //     }
-
-    //     return [
-    //         'query'   => $query,
-    //         'columns' => $columns,
-    //     ];
-    // }
-
     /**
      * Gets the mask attributes.
      *
@@ -110,18 +82,21 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
      */
     public function getMaskAttributes($mask)
     {
-        $length  = iconv_strlen($mask, 'UTF-8');
+        $array   = preg_split('//u', $mask, 0, PREG_SPLIT_NO_EMPTY);
+        $length  = mb_strlen($mask);
         $columns = ['id', 'length'];
         $query   = ['length' => $length];
+        $i = 1;
 
-        for ($i = 1; $i <= $length; $i++) {
-            $letter    = iconv_substr($mask, $i - 1, 1, 'UTF-8');
+        foreach ($array as $letter) {
             $column    = "letter_{$i}";
             $columns[] = $column;
 
             if ($letter != '_') {
-                $query[$column] = $letter;
+                $query[$column] = mb_strtoupper($letter);
             }
+
+            $i++;
         }
 
         return [

@@ -22,20 +22,29 @@ class AttachmentsController extends ResourceController
         ClueRepositoryInterface $clues
     )
     {
-        if (request()->method() != 'POST') {
-            return response()->json(['error' => 'Allows only POST requests!']);
+        if ($this->request->method() != 'POST') {
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Allows only POST requests!',
+            ]);
         }
 
-        $post = request()->all();
+        $post = $this->request->all();
 
         /* @var ClueInterface|null $clue */
         if (!$clue = $clues->find($post['clue'])) {
-            return response()->json(['error' => 'Can\'t find clue!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Can\'t find clue!',
+            ]);
         }
 
         /* @var CrosswordInterface|null $crossword */
         if (!$crossword = $crosswords->find($post['crossword'])) {
-            return response()->json(['error' => 'Can\'t find crossword!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Can\'t find crossword!',
+            ]);
         }
 
         /* @var AttachmentInterface|null $attachment */
@@ -46,10 +55,13 @@ class AttachmentsController extends ResourceController
             'y'         => $y,
             'direction' => $direction,
         ])) {
-            return response()->json(['error' => 'Can\'t create attachment!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Can\'t create attachment!',
+            ]);
         }
 
-        return response()->json([
+        return $this->response->json([
             'success' => true,
             'data'    => $attachment,
         ]);
@@ -63,17 +75,23 @@ class AttachmentsController extends ResourceController
      */
     public function delete(AttachmentRepositoryInterface $attachments)
     {
-        if (request()->method() != 'POST') {
-            return response()->json(['error' => 'Allows only POST requests!']);
+        if ($this->request->method() != 'POST') {
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Allows only POST requests!',
+            ]);
         }
 
-        $id = request()->get('id');
+        $id = $this->request->get('id');
 
         if (!$attachments->delete($id)) {
-            return response()->json(['error' => 'Can\'t delete attachment!']);
+            return $this->response->json([
+                'error'   => true,
+                'message' => 'Can\'t delete attachment!',
+            ]);
         }
 
-        return response()->json([
+        return $this->response->json([
             'success' => true,
             'data'    => $id
         ]);
