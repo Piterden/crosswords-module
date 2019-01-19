@@ -2,6 +2,14 @@
 
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
+/**
+ * Class AttachmentFormBuilder
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
 class AttachmentFormBuilder extends FormBuilder
 {
 

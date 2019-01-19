@@ -4,6 +4,14 @@ use Defr\CrosswordsModule\Crossword\Form\CrosswordFormBuilder;
 use Defr\CrosswordsModule\Crossword\Table\CrosswordTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
+/**
+ * Class CrosswordsController
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
 class CrosswordsController extends AdminController
 {
 

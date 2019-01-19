@@ -3,6 +3,14 @@
 use Defr\CrosswordsModule\Clue\Contract\ClueInterface;
 use Anomaly\Streams\Platform\Model\Repeater\RepeaterCluesEntryModel;
 
+/**
+ * Class ClueModel
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
 class ClueModel extends RepeaterCluesEntryModel implements ClueInterface
 {
 

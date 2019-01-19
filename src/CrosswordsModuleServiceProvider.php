@@ -20,6 +20,14 @@ use Defr\CrosswordsModule\Word\WordModel;
 use Defr\CrosswordsModule\Word\WordRepository;
 use Illuminate\Routing\Router;
 
+/**
+ * Class CrosswordsModuleServiceProvider
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
 class CrosswordsModuleServiceProvider extends AddonServiceProvider
 {
 
@@ -145,7 +153,16 @@ class CrosswordsModuleServiceProvider extends AddonServiceProvider
     ];
 
     /**
-     * The addon class bindings.
+     * The addon
+/**
+ * Class bindings
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
+class bindings.
      *
      * @type array|null
      */

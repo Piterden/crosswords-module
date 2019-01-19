@@ -5,6 +5,14 @@ use Defr\CrosswordsModule\Attachment\Contract\AttachmentRepositoryInterface;
 use Defr\CrosswordsModule\Clue\Contract\ClueRepositoryInterface;
 use Defr\CrosswordsModule\Crossword\Contract\CrosswordRepositoryInterface;
 
+/**
+ * Class AttachmentsController
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
 class AttachmentsController extends ResourceController
 {
 

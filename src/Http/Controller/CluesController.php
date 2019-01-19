@@ -4,6 +4,14 @@ use Anomaly\Streams\Platform\Http\Controller\ResourceController;
 use Defr\CrosswordsModule\Clue\Contract\ClueRepositoryInterface;
 use Defr\CrosswordsModule\Word\Contract\WordRepositoryInterface;
 
+/**
+ * Class CluesController
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
 class CluesController extends ResourceController
 {
 

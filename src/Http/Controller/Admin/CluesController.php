@@ -4,6 +4,14 @@ use Defr\CrosswordsModule\Clue\Form\ClueFormBuilder;
 use Defr\CrosswordsModule\Clue\Table\ClueTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
+/**
+ * Class CluesController
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
 class CluesController extends AdminController
 {
 

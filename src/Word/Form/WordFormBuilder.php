@@ -4,6 +4,14 @@ use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Defr\CrosswordsModule\Clue\ClueModel;
 // use Defr\CrosswordsModule\Clue\Contract\ClueRepositoryInterface;
 
+/**
+ * Class WordFormBuilder
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
 class WordFormBuilder extends FormBuilder
 {
 
