@@ -1,7 +1,8 @@
 <?php namespace Defr\CrosswordsModule\Clue;
 
-use Defr\CrosswordsModule\Clue\Contract\ClueInterface;
 use Anomaly\Streams\Platform\Model\Repeater\RepeaterCluesEntryModel;
+use Defr\CrosswordsModule\Clue\Contract\ClueInterface;
+use Defr\CrosswordsModule\Word\Contract\WordInterface;
 
 /**
  * Class ClueModel
@@ -19,7 +20,7 @@ class ClueModel extends RepeaterCluesEntryModel implements ClueInterface
      *
      * @return  WordInterface  The word.
      */
-    public function getWord()
+    public function getWord(): WordInterface
     {
         return $this->word;
     }
@@ -29,7 +30,7 @@ class ClueModel extends RepeaterCluesEntryModel implements ClueInterface
      *
      * @return  string  The text.
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->name;
     }

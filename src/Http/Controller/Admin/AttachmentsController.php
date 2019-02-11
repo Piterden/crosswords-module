@@ -1,8 +1,9 @@
 <?php namespace Defr\CrosswordsModule\Http\Controller\Admin;
 
+use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Defr\CrosswordsModule\Attachment\Form\AttachmentFormBuilder;
 use Defr\CrosswordsModule\Attachment\Table\AttachmentTableBuilder;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AttachmentsController
@@ -21,7 +22,7 @@ class AttachmentsController extends AdminController
      * @param AttachmentTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(AttachmentTableBuilder $table)
+    public function index(AttachmentTableBuilder $table): Response
     {
         return $table->render();
     }
@@ -32,7 +33,7 @@ class AttachmentsController extends AdminController
      * @param AttachmentFormBuilder $form
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(AttachmentFormBuilder $form)
+    public function create(AttachmentFormBuilder $form): Response
     {
         return $form->render();
     }
@@ -44,7 +45,7 @@ class AttachmentsController extends AdminController
      * @param        $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(AttachmentFormBuilder $form, $id)
+    public function edit(AttachmentFormBuilder $form, $id): Response
     {
         return $form->render($id);
     }

@@ -2,6 +2,9 @@
 
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsAttachmentsEntryModel;
 use Defr\CrosswordsModule\Attachment\Contract\AttachmentInterface;
+use Defr\CrosswordsModule\Clue\Contract\ClueInterface;
+use Defr\CrosswordsModule\Crossword\Contract\CrosswordInterface;
+use Defr\CrosswordsModule\Word\Contract\WordInterface;
 
 /**
  * Class AttachmentModel
@@ -29,7 +32,7 @@ class AttachmentModel extends CrosswordsAttachmentsEntryModel implements Attachm
      *
      * @return  ClueInterface  The clue.
      */
-    public function getClue()
+    public function getClue(): ClueInterface
     {
         return $this->clue;
     }
@@ -39,7 +42,7 @@ class AttachmentModel extends CrosswordsAttachmentsEntryModel implements Attachm
      *
      * @return  CrosswordInterface  The crossword.
      */
-    public function getCrossword()
+    public function getCrossword(): CrosswordInterface
     {
         return $this->crossword;
     }
@@ -49,7 +52,7 @@ class AttachmentModel extends CrosswordsAttachmentsEntryModel implements Attachm
      *
      * @return  WordInterface  The word.
      */
-    public function getWord()
+    public function getWord(): WordInterface
     {
         return $this->getClue()->getWord();
     }

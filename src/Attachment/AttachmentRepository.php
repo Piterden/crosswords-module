@@ -1,7 +1,9 @@
 <?php namespace Defr\CrosswordsModule\Attachment;
 
 use Anomaly\Streams\Platform\Entry\EntryRepository;
+use Defr\CrosswordsModule\Attachment\AttachmentCollection;
 use Defr\CrosswordsModule\Attachment\Contract\AttachmentRepositoryInterface;
+use Defr\CrosswordsModule\Crossword\Contract\CrosswordInterface;
 
 /**
  * Class AttachmentRepository
@@ -37,7 +39,7 @@ class AttachmentRepository extends EntryRepository implements AttachmentReposito
      * @param   CrosswordInterface    $crossword  The crossword
      * @return  AttachmentCollection
      */
-    public function findAllByCrossword(CrosswordInterface $crossword)
+    public function findAllByCrossword(CrosswordInterface $crossword): AttachmentCollection
     {
         return $this->model
             ->where(['crossword_id' => $crossword->getId()])

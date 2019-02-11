@@ -1,7 +1,9 @@
 <?php namespace Defr\CrosswordsModule\Word;
 
 use Anomaly\Streams\Platform\Entry\EntryRepository;
+use Defr\CrosswordsModule\Word\Contract\WordInterface;
 use Defr\CrosswordsModule\Word\Contract\WordRepositoryInterface;
+use Defr\CrosswordsModule\Word\WordCollection;
 
 /**
  * Class WordRepository
@@ -39,7 +41,7 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
      * @param   integer         $pageSize  The page size (default: 200)
      * @return  WordCollection
      */
-    public function findAllByMask($mask, $page = 0, $pageSize = 200)
+    public function findAllByMask(string $mask, $page = 0, $pageSize = 200): WordCollection
     {
         $attrs = $this->getMaskAttributes($mask);
 
@@ -57,7 +59,7 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
      * @param   string         $text  The text
      * @return  WordInterface
      */
-    public function findByWord($word)
+    public function findByWord(string $word): WordInterface
     {
         $attrs = $this->getMaskAttributes($word);
 
@@ -71,9 +73,9 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
      * Counts word by mask.
      *
      * @param   string   $mask  The mask
-     * @return  integer
+     * @return  int
      */
-    public function countByMask($mask)
+    public function countByMask(string $mask): int
     {
         $attrs = $this->getMaskAttributes($mask);
 
@@ -88,7 +90,7 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
      * @param   string  $mask  The mask
      * @return  array
      */
-    public function getMaskAttributes($mask)
+    public function getMaskAttributes(string $mask): array
     {
         $array   = preg_split('//u', $mask, 0, PREG_SPLIT_NO_EMPTY);
         $length  = mb_strlen($mask);

@@ -1,6 +1,7 @@
 <?php namespace Defr\CrosswordsModule\Clue;
 
 use Anomaly\Streams\Platform\Entry\EntryRepository;
+use Defr\CrosswordsModule\Clue\ClueCollection;
 use Defr\CrosswordsModule\Clue\Contract\ClueRepositoryInterface;
 use Defr\CrosswordsModule\Word\Contract\WordInterface;
 
@@ -38,7 +39,7 @@ class ClueRepository extends EntryRepository implements ClueRepositoryInterface
      * @param   WordInterface   $word  The word
      * @return  ClueCollection
      */
-    public function findAllByWord(WordInterface $word)
+    public function findAllByWord(WordInterface $word): ClueCollection
     {
         return $this->model
             ->select(['id', 'name'])

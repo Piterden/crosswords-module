@@ -1,8 +1,11 @@
 <?php namespace Defr\CrosswordsModule\Word;
 
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsWordsEntryModel;
-use Defr\CrosswordsModule\Word\Contract\WordInterface;
+use Defr\CrosswordsModule\Clue\ClueCollection;
 use Defr\CrosswordsModule\Clue\ClueModel;
+use Defr\CrosswordsModule\Word\Contract\WordInterface;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * Class WordModel
@@ -15,6 +18,11 @@ use Defr\CrosswordsModule\Clue\ClueModel;
 class WordModel extends CrosswordsWordsEntryModel implements WordInterface
 {
 
+    /**
+     * Eager load relations
+     *
+     * @var  array
+     */
     protected $with = [
         'clues',
     ];
@@ -24,7 +32,7 @@ class WordModel extends CrosswordsWordsEntryModel implements WordInterface
      *
      * @return int The length.
      */
-    public function getLength()
+    public function getLength(): int
     {
         return $this->length;
     }
@@ -32,10 +40,10 @@ class WordModel extends CrosswordsWordsEntryModel implements WordInterface
     /**
      * Gets the letter by its index.
      *
-     * @param integer $index The index (default: 1)
-     * @return string The letter.
+     * @param   integer  $index  The index (default: 1)
+     * @return  string           The letter.
      */
-    public function getLetter($index = 1)
+    public function getLetter($index = 1): string
     {
         $letter = "letter_{$index}";
 
@@ -45,9 +53,9 @@ class WordModel extends CrosswordsWordsEntryModel implements WordInterface
     /**
      * Gets the word.
      *
-     * @return string The word.
+     * @return  string  The word.
      */
-    public function getWord()
+    public function getWord(): string
     {
         $length = $this->getLength();
         $word   = '';
@@ -59,7 +67,12 @@ class WordModel extends CrosswordsWordsEntryModel implements WordInterface
         return $word;
     }
 
-    public function setWord($word)
+    /**
+     * Sets the word.
+     *
+     * @param  string  $word  The word
+     */
+    public function setWord(string $word): void
     {
         $this->length = iconv_strlen($word, 'UTF-8');
         $wordArray = preg_split('//u', $word, null, PREG_SPLIT_NO_EMPTY);
@@ -75,7 +88,7 @@ class WordModel extends CrosswordsWordsEntryModel implements WordInterface
      *
      * @return HasMany
      */
-    public function clues()
+    public function clues(): HasMany
     {
         return $this->hasMany(ClueModel::class, 'word_id');
     }
@@ -85,7 +98,7 @@ class WordModel extends CrosswordsWordsEntryModel implements WordInterface
      *
      * @return ClueCollection The clues.
      */
-    public function getClues()
+    public function getClues(): ClueCollection
     {
         return $this->clues()->get();
     }
@@ -95,7 +108,7 @@ class WordModel extends CrosswordsWordsEntryModel implements WordInterface
      *
      * @return Collection The clues.
      */
-    public function getClueNames()
+    public function getClueNames(): Collection
     {
         return $this->getClues()->pluck('name');
     }

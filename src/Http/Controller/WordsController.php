@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Http\Controller\ResourceController;
 use Defr\CrosswordsModule\Word\Contract\WordRepositoryInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class WordsController
@@ -18,9 +19,9 @@ class WordsController extends ResourceController
      * Searches for the first match.
      *
      * @param  WordRepositoryInterface  $words  The words
-     * @return JSONResponse
+     * @return Response
      */
-    public function find(WordRepositoryInterface $words, $page = 0, $mask)
+    public function find(WordRepositoryInterface $words, $page = 0, $mask): Response
     {
         return $this->response->json([
             'success' => true,
@@ -32,9 +33,9 @@ class WordsController extends ResourceController
      * Counts words by its length.
      *
      * @param  WordRepositoryInterface  $words  The words
-     * @return JSONResponse
+     * @return Response
      */
-    public function count(WordRepositoryInterface $words, $mask)
+    public function count(WordRepositoryInterface $words, $mask): Response
     {
         return $this->response->json([
             'success' => true,
@@ -42,7 +43,7 @@ class WordsController extends ResourceController
         ]);
     }
 
-    public function create(WordRepositoryInterface $words)
+    public function create(WordRepositoryInterface $words): Response
     {
         if ($this->request->method() != 'POST') {
             return $this->response->json([

@@ -3,6 +3,7 @@
 use Anomaly\Streams\Platform\Http\Controller\ResourceController;
 use Defr\CrosswordsModule\Clue\Contract\ClueRepositoryInterface;
 use Defr\CrosswordsModule\Word\Contract\WordRepositoryInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class CluesController
@@ -21,13 +22,14 @@ class CluesController extends ResourceController
      * @param  WordRepositoryInterface  $words  The words
      * @param  ClueRepositoryInterface  $clues  The clues
      * @param  string                   $word   The word
-     * @return ClueCollection
+     * @return Response
      */
     public function find(
         WordRepositoryInterface $words,
         ClueRepositoryInterface $clues,
         $word
-    ) {
+    ): Response
+    {
         if (!$word) {
             return $this->response->json([
                 'error'   => true,
@@ -35,12 +37,12 @@ class CluesController extends ResourceController
             ], 500);
         }
 
-        if (is_string($word)) {
-            $wordEntry = $words->findByWord($word);
-        }
-
         if (is_numeric($word)) {
             $wordEntry = $words->find($word);
+        }
+
+        if (is_string($word)) {
+            $wordEntry = $words->findByWord($word);
         }
 
         if (!$wordEntry) {
@@ -61,12 +63,12 @@ class CluesController extends ResourceController
      *
      * @param   ClueRepositoryInterface  $clues  The clues
      * @param   WordRepositoryInterface  $words  The words
-     * @return  JSONResponse
+     * @return  Response
      */
     public function create(
         ClueRepositoryInterface $clues,
         WordRepositoryInterface $words
-    )
+    ): Response
     {
         if ($this->request->method() != 'POST') {
             return $this->response->json([
@@ -106,9 +108,9 @@ class CluesController extends ResourceController
      * Deletes an clue.
      *
      * @param   ClueRepositoryInterface  $clues  The clues
-     * @return  JSONResponse
+     * @return  Response
      */
-    public function delete(ClueRepositoryInterface $clues)
+    public function delete(ClueRepositoryInterface $clues): Response
     {
         if (request()->method() != 'POST') {
             return $this->response->json([

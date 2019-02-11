@@ -1,8 +1,9 @@
 <?php namespace Defr\CrosswordsModule\Http\Controller\Admin;
 
+use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Defr\CrosswordsModule\Clue\Form\ClueFormBuilder;
 use Defr\CrosswordsModule\Clue\Table\ClueTableBuilder;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class CluesController
@@ -21,7 +22,7 @@ class CluesController extends AdminController
      * @param ClueTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(ClueTableBuilder $table)
+    public function index(ClueTableBuilder $table): Response
     {
         return $table->render();
     }
@@ -32,7 +33,7 @@ class CluesController extends AdminController
      * @param ClueFormBuilder $form
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(ClueFormBuilder $form)
+    public function create(ClueFormBuilder $form): Response
     {
         return $form->render();
     }
@@ -44,7 +45,7 @@ class CluesController extends AdminController
      * @param        $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(ClueFormBuilder $form, $id)
+    public function edit(ClueFormBuilder $form, $id): Response
     {
         return $form->render($id);
     }

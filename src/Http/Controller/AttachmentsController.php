@@ -4,6 +4,7 @@ use Anomaly\Streams\Platform\Http\Controller\ResourceController;
 use Defr\CrosswordsModule\Attachment\Contract\AttachmentRepositoryInterface;
 use Defr\CrosswordsModule\Clue\Contract\ClueRepositoryInterface;
 use Defr\CrosswordsModule\Crossword\Contract\CrosswordRepositoryInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AttachmentsController
@@ -22,13 +23,13 @@ class AttachmentsController extends ResourceController
      * @param   AttachmentRepositoryInterface  $attachments The attachments
      * @param   CrosswordRepositoryInterface   $crosswords  The crosswords
      * @param   ClueRepositoryInterface        $clues       The clues
-     * @return  JSONResponse
+     * @return  Response
      */
     public function create(
         AttachmentRepositoryInterface $attachments,
         CrosswordRepositoryInterface $crosswords,
         ClueRepositoryInterface $clues
-    )
+    ): Response
     {
         if ($this->request->method() != 'POST') {
             return $this->response->json([
@@ -79,9 +80,9 @@ class AttachmentsController extends ResourceController
      * Deletes an attachment.
      *
      * @param   AttachmentRepositoryInterface  $attachments  The attachments
-     * @return  JSONResponse
+     * @return  Response
      */
-    public function delete(AttachmentRepositoryInterface $attachments)
+    public function delete(AttachmentRepositoryInterface $attachments): Response
     {
         if ($this->request->method() != 'POST') {
             return $this->response->json([

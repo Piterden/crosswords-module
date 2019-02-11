@@ -1,8 +1,9 @@
 <?php namespace Defr\CrosswordsModule\Http\Controller\Admin;
 
+use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Defr\CrosswordsModule\Question\Form\QuestionFormBuilder;
 use Defr\CrosswordsModule\Question\Table\QuestionTableBuilder;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class QuestionsController
@@ -21,7 +22,7 @@ class QuestionsController extends AdminController
      * @param QuestionTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(QuestionTableBuilder $table)
+    public function index(QuestionTableBuilder $table): Response
     {
         return $table->render();
     }
@@ -32,7 +33,7 @@ class QuestionsController extends AdminController
      * @param QuestionFormBuilder $form
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(QuestionFormBuilder $form)
+    public function create(QuestionFormBuilder $form): Response
     {
         return $form->render();
     }
@@ -44,7 +45,7 @@ class QuestionsController extends AdminController
      * @param        $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(QuestionFormBuilder $form, $id)
+    public function edit(QuestionFormBuilder $form, $id): Response
     {
         return $form->render($id);
     }
