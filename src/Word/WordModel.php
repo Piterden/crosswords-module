@@ -28,59 +28,13 @@ class WordModel extends CrosswordsWordsEntryModel implements WordInterface
     ];
 
     /**
-     * Gets the length.
-     *
-     * @return int The length.
-     */
-    public function getLength(): int
-    {
-        return $this->length;
-    }
-
-    /**
-     * Gets the letter by its index.
-     *
-     * @param   integer  $index  The index (default: 1)
-     * @return  string           The letter.
-     */
-    public function getLetter($index = 1): string
-    {
-        $letter = "letter_{$index}";
-
-        return $this->$letter;
-    }
-
-    /**
      * Gets the word.
      *
      * @return  string  The word.
      */
     public function getWord(): string
     {
-        $length = $this->getLength();
-        $word   = '';
-
-        for ($i = 1; $i <= $length; $i++) {
-            $word .= $this->getLetter($i);
-        }
-
-        return $word;
-    }
-
-    /**
-     * Sets the word.
-     *
-     * @param  string  $word  The word
-     */
-    public function setWord(string $word): void
-    {
-        $this->length = iconv_strlen($word, 'UTF-8');
-        $wordArray = preg_split('//u', $word, null, PREG_SPLIT_NO_EMPTY);
-
-        for ($i = 1; $i <= $this->length; $i++) {
-            $field = "letter_{$i}";
-            $this->$field = $wordArray[$i - 1];
-        }
+        return $this->word;
     }
 
     /**

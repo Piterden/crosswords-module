@@ -22,12 +22,8 @@ class WordTableBuilder extends TableBuilder
         'all',
         'with_clues' => [
             'columns' => [
-                'word'  => [
-                    'value' => 'entry.word',
-                ],
-                'clues' => [
-                    'value' => 'entry.get_clue_names.implode("<br>")',
-                ],
+                'word',
+                'clues',
             ],
         ],
     ];
@@ -45,12 +41,7 @@ class WordTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $columns = [
-        'word' => [
-            'value' => 'entry.word',
-        ],
-        // 'clues' => [
-        //     'value' => 'entry.get_clue_names.implode("<br>")',
-        // ],
+        'word',
     ];
 
     /**
@@ -77,14 +68,7 @@ class WordTableBuilder extends TableBuilder
      * @var array
      */
     protected $options = [
-        'limit'    => 50,
-        'order_by' => [
-            'length'   => 'ASC',
-            'letter_1' => 'ASC',
-            'letter_2' => 'ASC',
-            'letter_3' => 'ASC',
-            'letter_4' => 'ASC',
-        ],
+        'limit' => 50,
     ];
 
     /**

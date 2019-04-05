@@ -36,20 +36,22 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
     /**
      * Find all words by its mask
      *
-     * @param   string          $mask      The mask
-     * @param   integer         $page      The page (default: 0)
-     * @param   integer         $pageSize  The page size (default: 200)
+     * @param   string          $mask  The mask
+     * @param   integer         $page  The page (default: 0)
+     * @param   integer         $size  The page size (default: 200)
      * @return  WordCollection
      */
-    public function findAllByMask(string $mask, $page = 0, $pageSize = 200): WordCollection
+    public function findAllByMask(
+        string $mask,
+        $page = 0,
+        $size = 500
+    ): WordCollection
     {
-        $attrs = $this->getMaskAttributes($mask);
-
         return $this->model
-            ->select($attrs['columns'])
-            ->where($attrs['query'])
-            ->offset($page * $pageSize)
-            ->limit($pageSize)
+            ->select(['id', 'word'])
+            ->where('word', 'LIKE', $mask)
+            ->offset($page * $size)
+            ->limit($size)
             ->get();
     }
 
@@ -61,11 +63,9 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
      */
     public function findByWord(string $word): WordInterface
     {
-        $attrs = $this->getMaskAttributes($word);
-
         return $this->model
-            ->select($attrs['columns'])
-            ->where($attrs['query'])
+            ->select(['id', 'word'])
+            ->where('word', $word)
             ->first();
     }
 
@@ -77,42 +77,10 @@ class WordRepository extends EntryRepository implements WordRepositoryInterface
      */
     public function countByMask(string $mask): int
     {
-        $attrs = $this->getMaskAttributes($mask);
-
         return $this->model
-            ->where($attrs['query'])
+            ->select(['id', 'word'])
+            ->where('word', 'LIKE', $mask)
             ->count();
-    }
-
-    /**
-     * Gets the mask attributes.
-     *
-     * @param   string  $mask  The mask
-     * @return  array
-     */
-    public function getMaskAttributes(string $mask): array
-    {
-        $array   = preg_split('//u', $mask, 0, PREG_SPLIT_NO_EMPTY);
-        $length  = mb_strlen($mask);
-        $columns = ['id', 'length'];
-        $query   = ['length' => $length];
-        $i = 1;
-
-        foreach ($array as $letter) {
-            $column    = "letter_{$i}";
-            $columns[] = $column;
-
-            if ($letter != '_') {
-                $query[$column] = mb_strtoupper($letter);
-            }
-
-            $i++;
-        }
-
-        return [
-            'query'   => $query,
-            'columns' => $columns,
-        ];
     }
 
 }

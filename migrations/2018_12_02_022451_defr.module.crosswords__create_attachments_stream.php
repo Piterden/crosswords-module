@@ -23,7 +23,7 @@ class DefrModuleCrosswordsCreateAttachmentsStream extends Migration
         'crossword' => [
             'required' => true,
         ],
-        'clue'  => [
+        'clue'      => [
             'required' => true,
         ],
         'x'         => [

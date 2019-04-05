@@ -25,7 +25,7 @@ class DefrModuleCrosswordsCreateCrosswordsStream extends Migration
      */
     protected $assignments = [
         'name' => [
-            'required'     => true,
+            'required' => true,
         ],
         'slug' => [
             'unique'   => true,
