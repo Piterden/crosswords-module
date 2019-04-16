@@ -29,7 +29,7 @@ class CorsMiddleware
             )
             ->header(
                 'Access-Control-Allow-Headers',
-                'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+                'Origin, Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, X-Auth-Token'
             )
             ->header(
                 'Access-Control-Expose-Headers',
@@ -37,7 +37,7 @@ class CorsMiddleware
             )
             ->header(
                 'Access-Control-Allow-Methods',
-                'GET, POST, PUT, DELETE, OPTIONS'
+                'GET, POST, PATCH, PUT, DELETE, OPTIONS'
             );
     }
 

@@ -43,6 +43,11 @@ class CrosswordsModule extends Module
                 'new_word',
             ],
         ],
+        'grids' => [
+            'buttons' => [
+                'new_grid',
+            ],
+        ],
     ];
 
 }

@@ -41,4 +41,12 @@ return [
             'delete' => 'Can delete clues?',
         ],
     ],
+    'grids' => [
+        'name'   => 'Grids',
+        'option' => [
+            'read'   => 'Can read grids?',
+            'write'  => 'Can create/edit grids?',
+            'delete' => 'Can delete grids?',
+        ],
+    ],
 ];

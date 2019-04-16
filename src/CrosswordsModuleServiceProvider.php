@@ -4,6 +4,7 @@ use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsAttachmentsEntryModel;
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsCluesEntryModel;
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsCrosswordsEntryModel;
+use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsGridsEntryModel;
 use Anomaly\Streams\Platform\Model\Crosswords\CrosswordsWordsEntryModel;
 use Defr\CrosswordsModule\Attachment\AttachmentModel;
 use Defr\CrosswordsModule\Attachment\AttachmentRepository;
@@ -14,6 +15,9 @@ use Defr\CrosswordsModule\Clue\Contract\ClueRepositoryInterface;
 use Defr\CrosswordsModule\Crossword\Contract\CrosswordRepositoryInterface;
 use Defr\CrosswordsModule\Crossword\CrosswordModel;
 use Defr\CrosswordsModule\Crossword\CrosswordRepository;
+use Defr\CrosswordsModule\Grid\Contract\GridRepositoryInterface;
+use Defr\CrosswordsModule\Grid\GridModel;
+use Defr\CrosswordsModule\Grid\GridRepository;
 use Defr\CrosswordsModule\Http\Middleware\CorsMiddleware;
 use Defr\CrosswordsModule\Word\Contract\WordRepositoryInterface;
 use Defr\CrosswordsModule\Word\WordModel;
@@ -65,6 +69,9 @@ class CrosswordsModuleServiceProvider extends AddonServiceProvider
      * @type array|null
      */
     protected $routes = [
+        'admin/crosswords/grids'                 => 'Defr\CrosswordsModule\Http\Controller\Admin\GridsController@index',
+        'admin/crosswords/grids/create'          => 'Defr\CrosswordsModule\Http\Controller\Admin\GridsController@create',
+        'admin/crosswords/grids/edit/{id}'       => 'Defr\CrosswordsModule\Http\Controller\Admin\GridsController@edit',
         'admin/crosswords/words'                 => [
             'uses' => 'Defr\CrosswordsModule\Http\Controller\Admin\WordsController@index',
         ],
@@ -94,15 +101,23 @@ class CrosswordsModuleServiceProvider extends AddonServiceProvider
         ],
 
         'crossword/words/find/{page}/{mask}'     => [
-            'uses' => 'Defr\CrosswordsModule\Http\Controller\WordsController@find',
+            'uses'       => 'Defr\CrosswordsModule\Http\Controller\WordsController@find',
             'middleware' => [CorsMiddleware::class],
         ],
         'crossword/words/count/{mask}'           => [
-            'uses' => 'Defr\CrosswordsModule\Http\Controller\WordsController@count',
+            'uses'       => 'Defr\CrosswordsModule\Http\Controller\WordsController@count',
             'middleware' => [CorsMiddleware::class],
         ],
         'crossword/clues/find/{word}'            => [
-            'uses' => 'Defr\CrosswordsModule\Http\Controller\CluesController@find',
+            'uses'       => 'Defr\CrosswordsModule\Http\Controller\CluesController@find',
+            'middleware' => [CorsMiddleware::class],
+        ],
+        'crossword/create'                       => [
+            'uses'       => 'Defr\CrosswordsModule\Http\Controller\CrosswordsController@create',
+            'middleware' => [CorsMiddleware::class],
+        ],
+        'crossword/grids/create'                 => [
+            'uses'       => 'Defr\CrosswordsModule\Http\Controller\GridsController@create',
             'middleware' => [CorsMiddleware::class],
         ],
     ];
@@ -158,6 +173,7 @@ class CrosswordsModuleServiceProvider extends AddonServiceProvider
      * @type array|null
      */
     protected $bindings = [
+        CrosswordsGridsEntryModel::class       => GridModel::class,
         CrosswordsCluesEntryModel::class       => ClueModel::class,
         CrosswordsWordsEntryModel::class       => WordModel::class,
         CrosswordsAttachmentsEntryModel::class => AttachmentModel::class,
@@ -170,6 +186,7 @@ class CrosswordsModuleServiceProvider extends AddonServiceProvider
      * @type array|null
      */
     protected $singletons = [
+        GridRepositoryInterface::class       => GridRepository::class,
         ClueRepositoryInterface::class       => ClueRepository::class,
         WordRepositoryInterface::class       => WordRepository::class,
         AttachmentRepositoryInterface::class => AttachmentRepository::class,

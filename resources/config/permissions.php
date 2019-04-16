@@ -26,4 +26,9 @@ return [
         'write',
         'delete',
     ],
+    'grids' => [
+        'read',
+        'write',
+        'delete',
+    ],
 ];

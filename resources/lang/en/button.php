@@ -6,4 +6,5 @@ return [
     'new_attachment' => 'New Attachment',
     'new_word' => 'New Word',
     'new_clue' => 'New Clue',
+    'new_grid' => 'New Grid',
 ];

@@ -34,7 +34,7 @@ class DefrModuleCrosswordsCreateCrosswordsStream extends Migration
         'description',
         'width',
         'height',
-        'blanks',
+        'grid',
         'published_at',
     ];
 

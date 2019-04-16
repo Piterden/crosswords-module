@@ -16,4 +16,7 @@ return [
     'clues' => [
         'name' => 'Clues',
     ],
+    'grids' => [
+        'name' => 'Grids',
+    ],
 ];
