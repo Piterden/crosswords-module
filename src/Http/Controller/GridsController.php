@@ -14,8 +14,9 @@ class GridsController extends ResourceController
      * Creates a new instance and stores it into DB.
      *
      * @param  GridRepositoryInterface  $grids  The grids
+     * @return Response
      */
-    public function create(GridRepositoryInterface $grids)
+    public function create(GridRepositoryInterface $grids): Response
     {
         if ($this->request->method() != 'POST') {
             return $this->response->json([
@@ -28,9 +29,9 @@ class GridsController extends ResourceController
 
         /* @var GridInterface|null $clue */
         if (!$grid = $grids->create([
-            'name'   => $post['name'],
-            'blanks' => $post['blanks'],
-            'tags'   => $post['tags'],
+            'name'   => array_get($post, 'name'),
+            'blanks' => array_get($post, 'blanks'),
+            'tags'   => array_get($post, 'tags'),
         ])) {
             return $this->response->json([
                 'success' => false,
