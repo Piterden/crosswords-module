@@ -44,4 +44,26 @@ class GridsController extends ResourceController
         ], 200);
     }
 
+    /**
+     * Loads the grid data.
+     *
+     * @param  GridRepositoryInterface  $grids  The grids
+     * @param  string                   $id     The identifier
+     * @return Response
+     */
+    public function view(GridRepositoryInterface $grids, $id)
+    {
+        if (!$grid = $grids->find($id)) {
+            return $this->response->json([
+                'success' => false,
+                'message' => 'Can\'t find grid!',
+            ], 450);
+        }
+
+        return $this->response->json([
+            'success' => true,
+            'data'    => $grid,
+        ], 200);
+    }
+
 }
