@@ -12,7 +12,7 @@ class DefrModuleCrosswordsCreateWordsStream extends Migration
      */
     protected $stream = [
         'slug'         => 'words',
-        'title_column' => 'length',
+        'title_column' => 'word',
         'searchable'   => true,
         'sortable'     => true,
     ];

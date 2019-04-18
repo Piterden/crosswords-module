@@ -116,6 +116,10 @@ class CrosswordsModuleServiceProvider extends AddonServiceProvider
             'uses'       => 'Defr\CrosswordsModule\Http\Controller\CrosswordsController@create',
             'middleware' => [CorsMiddleware::class],
         ],
+        'crossword/grids'                        => [
+            'uses'       => 'Defr\CrosswordsModule\Http\Controller\GridsController@index',
+            'middleware' => [CorsMiddleware::class],
+        ],
         'crossword/grids/create'                 => [
             'uses'       => 'Defr\CrosswordsModule\Http\Controller\GridsController@create',
             'middleware' => [CorsMiddleware::class],

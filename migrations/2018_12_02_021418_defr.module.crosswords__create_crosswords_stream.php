@@ -32,8 +32,6 @@ class DefrModuleCrosswordsCreateCrosswordsStream extends Migration
             'required' => true,
         ],
         'description',
-        'width',
-        'height',
         'grid',
         'published_at',
     ];

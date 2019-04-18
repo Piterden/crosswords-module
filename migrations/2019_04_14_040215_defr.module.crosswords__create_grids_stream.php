@@ -26,6 +26,12 @@ class DefrModuleCrosswordsCreateGridsStream extends Migration
         'blanks' => [
             'required' => true,
         ],
+        'width'  => [
+            'required' => true,
+        ],
+        'height' => [
+            'required' => true,
+        ],
         'tags',
     ];
 

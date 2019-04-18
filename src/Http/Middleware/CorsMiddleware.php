@@ -29,7 +29,7 @@ class CorsMiddleware
             )
             ->header(
                 'Access-Control-Allow-Headers',
-                'Accept,Accept-Language,Content-Language,Content-Type'
+                'Origin,Content-Type,Accept,Accept-Language,Content-Language,Access-Control-Allow-Headers,Authorization,X-Requested-With,X-Auth-Token'
             )
             ->header(
                 'Access-Control-Expose-Headers',

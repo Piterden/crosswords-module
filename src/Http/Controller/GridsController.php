@@ -29,9 +29,12 @@ class GridsController extends ResourceController
 
         /* @var GridInterface|null $clue */
         if (!$grid = $grids->create([
-            'name'   => array_get($post, 'name'),
-            'blanks' => array_get($post, 'blanks'),
-            'tags'   => array_get($post, 'tags'),
+            'name'        => array_get($post, 'name'),
+            'description' => array_get($post, 'description'),
+            'blanks'      => array_get($post, 'blanks'),
+            'width'       => array_get($post, 'width'),
+            'height'      => array_get($post, 'height'),
+            'tags'        => array_get($post, 'tags'),
         ])) {
             return $this->response->json([
                 'success' => false,
@@ -41,7 +44,32 @@ class GridsController extends ResourceController
 
         return $this->response->json([
             'success' => true,
-            'data'    => $grid,
+            'data'    => [
+                'grid' => $grid,
+            ],
+        ], 200);
+    }
+
+    /**
+     * Gets a list of grids
+     *
+     * @param  GridRepositoryInterface  $grids  The grids
+     * @return Response
+     */
+    public function index(GridRepositoryInterface $grids): Response
+    {
+        if (!$result = $grids->all()) {
+            return $this->response->json([
+                'success' => false,
+                'message' => 'Can\'t get grids!',
+            ], 450);
+        }
+
+        return $this->response->json([
+            'success' => true,
+            'data'    => [
+                'grids' => $result,
+            ],
         ], 200);
     }
 
@@ -52,7 +80,7 @@ class GridsController extends ResourceController
      * @param  string                   $id     The identifier
      * @return Response
      */
-    public function view(GridRepositoryInterface $grids, $id)
+    public function view(GridRepositoryInterface $grids, $id): Response
     {
         if (!$grid = $grids->find($id)) {
             return $this->response->json([
@@ -63,7 +91,9 @@ class GridsController extends ResourceController
 
         return $this->response->json([
             'success' => true,
-            'data'    => $grid,
+            'data'    => [
+                'grid' => $grid,
+            ],
         ], 200);
     }
 
