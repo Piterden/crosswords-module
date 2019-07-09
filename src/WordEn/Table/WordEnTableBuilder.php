@@ -1,8 +1,16 @@
-<?php namespace Defr\CrosswordsModule\Grid\Table;
+<?php namespace Defr\CrosswordsModule\WordEn\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
-class GridTableBuilder extends TableBuilder
+/**
+ * Class WordEnTableBuilder
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
+class WordEnTableBuilder extends TableBuilder
 {
 
     /**
@@ -10,7 +18,15 @@ class GridTableBuilder extends TableBuilder
      *
      * @var array|string
      */
-    protected $views = [];
+    protected $views = [
+        'all',
+        'with_clues' => [
+            'columns' => [
+                'word',
+                'clue_ens',
+            ],
+        ],
+    ];
 
     /**
      * The table filters.
@@ -25,9 +41,7 @@ class GridTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $columns = [
-        'width',
-        'height',
-        'blanks',
+        'word',
     ];
 
     /**
@@ -36,7 +50,7 @@ class GridTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $buttons = [
-        'edit'
+        'edit',
     ];
 
     /**
@@ -45,7 +59,7 @@ class GridTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $actions = [
-        'delete'
+        'delete',
     ];
 
     /**
@@ -54,12 +68,8 @@ class GridTableBuilder extends TableBuilder
      * @var array
      */
     protected $options = [
-        'limit'            => 25,
-        'show_headers'     => false,
-        'sortable_headers' => false,
-        'table_view'       => 'defr.module.crosswords::table/table',
+        'limit' => 50,
     ];
-
 
     /**
      * The table assets.

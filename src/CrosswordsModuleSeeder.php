@@ -12,13 +12,21 @@ class CrosswordsModuleSeeder extends Seeder
     {
         $password = env('DB_PASSWORD');
 
-        echo "Start words seeder\n";
+        echo "Start RU words seeder\n";
         shell_exec("mysql --user=crossword --database=crossword --password={$password} < words.sql");
-        echo "Words seeder success\n";
+        echo "RU Words seeder success\n";
 
-        echo "Start clues seeder\n";
+        echo "Start RU clues seeder\n";
         shell_exec("mysql --user=crossword --database=crossword --password={$password} < clues.sql");
-        echo "Clues seeder success\n";
+        echo "RU Clues seeder success\n";
+
+        echo "Start EN words seeder\n";
+        shell_exec("mysql --user=crossword --database=crossword --password={$password} < words_en.sql");
+        echo "En Words seeder success\n";
+
+        echo "Start EN clues seeder\n";
+        shell_exec("mysql --user=crossword --database=crossword --password={$password} < clues_en.sql");
+        echo "RU Clues seeder success\n";
     }
 
 }

@@ -1,8 +1,16 @@
-<?php namespace Defr\CrosswordsModule\Grid\Table;
+<?php namespace Defr\CrosswordsModule\ClueEn\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
-class GridTableBuilder extends TableBuilder
+/**
+ * Class ClueEnTableBuilder
+ *
+ * @package  CrosswordsModule
+ * @author   Denis Efremov <efremov.a.denis@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://pyrocms.com
+ */
+class ClueEnTableBuilder extends TableBuilder
 {
 
     /**
@@ -25,9 +33,8 @@ class GridTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $columns = [
-        'width',
-        'height',
-        'blanks',
+        'name',
+        'entry.word.word',
     ];
 
     /**
@@ -54,12 +61,8 @@ class GridTableBuilder extends TableBuilder
      * @var array
      */
     protected $options = [
-        'limit'            => 25,
-        'show_headers'     => false,
-        'sortable_headers' => false,
-        'table_view'       => 'defr.module.crosswords::table/table',
+        'limit' => 100,
     ];
-
 
     /**
      * The table assets.

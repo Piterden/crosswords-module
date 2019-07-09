@@ -1,7 +1,7 @@
 <?php namespace Defr\CrosswordsModule\Http\Controller;
 
 use Anomaly\Streams\Platform\Http\Controller\ResourceController;
-use Defr\CrosswordsModule\Word\Contract\WordRepositoryInterface;
+use Defr\CrosswordsModule\WordEn\Contract\WordEnRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://pyrocms.com
  */
-class WordsController extends ResourceController
+class WordEnsController extends ResourceController
 {
 
     public function part()
@@ -23,10 +23,10 @@ class WordsController extends ResourceController
     /**
      * Searches for the first match.
      *
-     * @param  WordRepositoryInterface  $words  The words
+     * @param  WordEnRepositoryInterface  $words  The words
      * @return Response
      */
-    public function find(WordRepositoryInterface $words, $page = 0, $mask): Response
+    public function find(WordEnRepositoryInterface $words, $page = 0, $mask): Response
     {
         return $this->response->json([
             'success' => true,
@@ -37,10 +37,10 @@ class WordsController extends ResourceController
     /**
      * Counts words by its length.
      *
-     * @param  WordRepositoryInterface  $words  The words
+     * @param  WordEnRepositoryInterface  $words  The words
      * @return Response
      */
-    public function count(WordRepositoryInterface $words, $mask): Response
+    public function count(WordEnRepositoryInterface $words, $mask): Response
     {
         return $this->response->json([
             'success' => true,
@@ -48,7 +48,13 @@ class WordsController extends ResourceController
         ]);
     }
 
-    public function create(WordRepositoryInterface $words): Response
+    /**
+     * { function_description }
+     *
+     * @param  WordEnRepositoryInterface $words  The words
+     * @return Response
+     */
+    public function create(WordEnRepositoryInterface $words): Response
     {
         if ($this->request->method() != 'POST') {
             return $this->response->json([

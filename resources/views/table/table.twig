@@ -1,0 +1,41 @@
+{# {{ asset_add("scripts.js", "streams::js/table/jquery-sortable.js") }} #}
+
+<style>
+.cell {
+    width: 10px;
+    height: 10px;
+    border: 1px solid;
+    margin: -1px -1px 0 0;
+}
+</style>
+
+{% if not table.rows.empty() %}
+    {% block panel %}
+        <div class="{{ table.options.panel_class }} panel-table">
+            {% for grid in table.rows %}
+                {% set width = grid.columns[0].value %}
+                {% set height = grid.columns[1].value %}
+                {% set blanks = grid.columns[2].value|raw %}
+
+                <div class="grid-preview" style="display:inline-grid;grid-template-columns:repeat({{ width }}, 1fr);">
+                    {% for col in 1..width %}
+                        {% for row in 1..height %}{{ dd(blanks) }}
+                            <div class="cell{% if blanks.contains(col ~ ':' ~ row) %} blank{% endif %}"></div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+        </div>
+    {% endblock %}
+{% else %}
+
+    {% block no_results %}
+        <div class="{{ table.options.panel_class }}">
+            <div class="{{ table.options.panel_body_class }}">
+                {{ trans(table.options.get('no_results_message', 'streams::message.no_results')) }}
+            </div>
+        </div>
+    {% endblock %}
+
+{% endif %}
